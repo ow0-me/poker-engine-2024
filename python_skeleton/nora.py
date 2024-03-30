@@ -1,5 +1,6 @@
+
 """
-bip2
+Simple example pokerbot, written in Python.
 """
 
 import itertools
@@ -115,10 +116,6 @@ class Player(Bot):
         pot_size = my_contribution + opp_contribution # the number of chips in the pot
         continue_cost = observation["opp_pip"] - observation["my_pip"] # the number of chips needed to stay in the pot
 
-        minraise = observation["min_raise"]
-        maxraise = observation["min_raise"]
-
-
         if observation["opp_stack"] == 0:
             self.log.append("allin det")
             self.allindetected = True
@@ -140,10 +137,6 @@ class Player(Bot):
         equity = self.pre_computed_probs['_'.join(sorted(observation["my_cards"])) + '_' + '_'.join(sorted(observation["board_cards"]))]
         pot_odds = continue_cost / (pot_size + continue_cost)
 
-        relraise = (minraise - observation["my_pip"])
-        minraiseodds = relraise / (pot_size + relraise)
-
-
         self.log.append(f"Equity: {equity}")
         self.log.append(f"Pot odds: {pot_odds}")
 
@@ -158,22 +151,14 @@ class Player(Bot):
             self.log.append('using allin strat: ' + str(action))
             return action
 
-        #old_equity = equity
-
         # If the villain raised, adjust the probability
         if continue_cost > 1:
             equity = (equity - 0.5) / 0.5
             self.log.append(f"Adjusted equity: {equity}")
 
-        #if equity > 0.95:
-            #print(equity)
-
-        if equity > 0.8 and RaiseAction in observation["legal_actions"]:
-            raise_amount = min(int(pot_size*(1/(1-equity))), maxraise)
-            raise_amount = max(raise_amount, minraise)
-            action = RaiseAction(raise_amount)
-        elif RaiseAction in observation["legal_actions"] and equity >= (pot_odds + minraiseodds) / 2:
-            raise_amount = minraise
+        if equity > 0.7 and RaiseAction in observation["legal_actions"]:
+            raise_amount = min(int(pot_size*(equity ** 3 * 5 - 1)), observation["max_raise"])
+            raise_amount = max(raise_amount, observation["min_raise"])
             action = RaiseAction(raise_amount)
         elif CallAction in observation["legal_actions"] and equity >= pot_odds:
             action = CallAction()
@@ -183,8 +168,6 @@ class Player(Bot):
             action = FoldAction()
 
         self.log.append(str(action))
-
-        # wins 120/196 of the time against old player, p=0.0010259
 
         return action
 

@@ -7,14 +7,14 @@ from typing import List, Union
 from google.auth import default
 from google.auth.exceptions import DefaultCredentialsError
 from google.cloud import storage
-from google.cloud.sql.connector import Connector
+#from google.cloud.sql.connector import Connector
 import sqlalchemy
 
 # PARAMETERS TO CONTROL THE BEHAVIOR OF THE GAME ENGINE
 
 # Player names
-PLAYER_1_NAME = os.getenv("PLAYER_1_NAME", "p1")
-PLAYER_2_NAME = os.getenv("PLAYER_2_NAME", "p2")
+PLAYER_1_NAME = os.getenv("PLAYER_1_NAME", "Player 1")
+PLAYER_2_NAME = os.getenv("PLAYER_2_NAME", "Player 2")
 
 # DNS names for player bots, retrieved from environment variables
 PLAYER_1_DNS = os.getenv("PLAYER_1_DNS", "localhost:50051")
@@ -23,8 +23,9 @@ PLAYER_2_DNS = os.getenv("PLAYER_2_DNS", "localhost:50052")
 # GAME PROGRESS IS RECORDED HERE
 MATCH_ID = os.getenv("MATCH_ID", 0)
 LOGS_DIRECTORY = "logs"
-GAME_LOG_FILENAME = "engine_log"
-BOT_LOG_FILENAME = "debug_log"
+#IDTN = datetime.now()
+GAME_LOG_FILENAME = lambda dt: f"{dt}-engine.log"
+BOT_LOG_FILENAME = lambda dt: f"{dt}-debug.log"
 
 # PLAYER_LOG_SIZE_LIMIT IS IN BYTES
 PLAYER_LOG_SIZE_LIMIT = 1000000  # 1 MB
@@ -40,11 +41,14 @@ ENFORCE_GAME_CLOCK = True
 STARTING_GAME_CLOCK = 300.0
 
 # THE GAME VARIANT FIXES THE PARAMETERS BELOW
-NUM_ROUNDS = 1000
+NUM_ROUNDS = int(os.getenv("NUM_ROUNDS", "1000"))
+NUM_GAMES = int(os.getenv("NUM_GAMES", "1"))
 STARTING_STACK = 400
 BIG_BLIND = 2
 SMALL_BLIND = 1
 
+PRINT = False
+# PRINT
 
 def get_credentials():
     try:

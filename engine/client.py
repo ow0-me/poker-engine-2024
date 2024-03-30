@@ -17,6 +17,7 @@ from .config import (
     ENFORCE_GAME_CLOCK,
     STARTING_GAME_CLOCK,
     PLAYER_LOG_SIZE_LIMIT,
+    PRINT
 )
 
 shared_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "shared"))
@@ -219,7 +220,8 @@ class Client:
 
         try:
             new_logs = self.stub.EndRound(end_round_message).logs
-            print(*new_logs,sep='\n')
+            if PRINT:
+                print(*new_logs,sep='\n')
             for log_entry in new_logs:
                 entry_bytes = log_entry.encode("utf-8")
                 entry_size = len(entry_bytes)

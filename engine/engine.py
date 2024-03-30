@@ -6,6 +6,7 @@ from collections import deque
 import os
 from typing import Deque, List
 import csv
+from datetime import datetime
 
 from .actions import (
     STREET_NAMES,
@@ -171,7 +172,7 @@ class Game:
         """
         Runs one match of poker.
         """
-        print("Starting the Poker Game...")
+        print("Starting the Poker Game...", PLAYER_1_DNS, PLAYER_2_DNS)
         self.players = [
             Client(PLAYER_1_NAME, PLAYER_1_DNS),
             Client(PLAYER_2_NAME, PLAYER_2_DNS),
@@ -199,6 +200,7 @@ class Game:
                     print(f"Starting round {self.round_num}...")
                     print(f"{self.players[0].name} remaining time: {self.players[0].game_clock}")
                     print(f"{self.players[1].name} remaining time: {self.players[1].game_clock}")
+                    print(f"{self.original_players[0].name} Bankroll: {self.original_players[0].bankroll}\n{self.original_players[1].name} Bankroll: {self.original_players[1].bankroll}")
                 self.log.append(f"\nRound #{self.round_num}")
 
                 self.run_round((self.round_num == NUM_ROUNDS))
@@ -207,6 +209,8 @@ class Game:
         self.log.append(f"{self.original_players[0].name} Bankroll: {self.original_players[0].bankroll}")
         self.log.append(f"{self.original_players[1].name} Bankroll: {self.original_players[1].bankroll}")
 
+        print(f"{self.original_players[0].name} Bankroll: {self.original_players[0].bankroll}\n{self.original_players[1].name} Bankroll: {self.original_players[1].bankroll}")
+
         self._finalize_log()
         add_match_entry(self.original_players[0].bankroll, self.original_players[1].bankroll)
 
@@ -214,14 +218,16 @@ class Game:
         """
         Finalizes the game log, writing it to a file and uploading it.
         """
-        csv_filename = f"{GAME_LOG_FILENAME}.csv"
+        time = datetime.now()
+
+        csv_filename = f"{GAME_LOG_FILENAME(time)}.csv"
         self._upload_or_write_file(self.csvlog, csv_filename, is_csv=True)
 
-        log_filename = f"{GAME_LOG_FILENAME}.txt"
+        log_filename = f"{GAME_LOG_FILENAME(time)}.txt"
         self._upload_or_write_file(self.log, log_filename)
 
         for player in self.players:
-            log_filename = os.path.join(player.name, f"{BOT_LOG_FILENAME}.txt")
+            log_filename = os.path.join(player.name, f"{BOT_LOG_FILENAME(time)}.txt")
             self._upload_or_write_file(player.log, log_filename)
 
     def _upload_or_write_file(self, content, base_filename, is_csv=False):
