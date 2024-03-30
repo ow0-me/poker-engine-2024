@@ -219,6 +219,7 @@ class Client:
 
         try:
             new_logs = self.stub.EndRound(end_round_message).logs
+            print(*new_logs,sep='\n')
             for log_entry in new_logs:
                 entry_bytes = log_entry.encode("utf-8")
                 entry_size = len(entry_bytes)

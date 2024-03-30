@@ -4,6 +4,8 @@ import subprocess
 
 from engine.engine import Game
 
+a = 'player'
+b = 'allin'
 
 def parse_args():
     parser = ArgumentParser()
@@ -28,10 +30,10 @@ if __name__ == "__main__":
         game_engine_process.join()
     else:
         player1_process = subprocess.Popen(
-            ["python", "python_skeleton/player.py", "--port", "50051"]
+            ["python", f"python_skeleton/{a}.py", "--port", "50051"]
         )
         player2_process = subprocess.Popen(
-            ["python", "python_skeleton/prob_bot.py", "--port", "50052"]
+            ["python", f"python_skeleton/{b}.py", "--port", "50052"]
         )
         game_engine_process = Process(target=run_game_engine)
         game_engine_process.start()

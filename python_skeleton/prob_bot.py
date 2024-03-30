@@ -74,7 +74,7 @@ class Player(Bot):
         self.log.append("game over")
         self.log.append("================================\n")
 
-        return self.log
+        return ['prob bot moved']
 
     def get_action(self, observation: dict) -> Action:
         """

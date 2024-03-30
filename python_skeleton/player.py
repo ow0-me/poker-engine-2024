@@ -30,6 +30,8 @@ class Player(Bot):
         """
         self.log = []
         self.pre_computed_probs = pickle.load(open("python_skeleton/skeleton/pre_computed_probs.pkl", "rb")) 
+        self.allins = 0
+        self.totalgames = 0
         pass
 
     def handle_new_round(self, game_state: GameState, round_state: RoundState, active: int) -> None:
@@ -52,6 +54,7 @@ class Player(Bot):
         self.log = []
         self.log.append("================================")
         self.log.append("new round")
+        self.allindetected = False
         pass
 
     def handle_round_over(self, game_state: GameState, terminal_state: TerminalState, active: int, is_match_over: bool) -> Optional[str]:
@@ -67,12 +70,19 @@ class Player(Bot):
             Your logs.
         """
         #my_delta = terminal_state.deltas[active] # your bankroll change from this round
-        #previous_state = terminal_state.previous_state # RoundState before payoffs
+        previous_state = terminal_state.previous_state # RoundState before payoffs
         #street = previous_state.street # 0, 3, 4, or 5 representing when this round ended
         #my_cards = previous_state.hands[active] # your cards
         #opp_cards = previous_state.hands[1-active] # opponent's cards or [] if not revealed
+        #self.log.append(str(previous_state.stacks[1 - active]))
+        #self.log.append(str(previous_state))
+        #self.log.append("<prev")
+        if self.allindetected:#previous_state.stacks[1 - active] == 0:
+            #self.log.append("allin here")
+            self.allins += 1
         self.log.append("game over")
         self.log.append("================================\n")
+        self.totalgames += 1
 
         return self.log
 
@@ -105,6 +115,10 @@ class Player(Bot):
         pot_size = my_contribution + opp_contribution # the number of chips in the pot
         continue_cost = observation["opp_pip"] - observation["my_pip"] # the number of chips needed to stay in the pot
 
+        if observation["opp_stack"] == 0:
+            self.log.append("allin det")
+            self.allindetected = True
+
         self.log.append("My cards: " + str(observation["my_cards"]))
         self.log.append("Board cards: " + str(observation["board_cards"]))
         self.log.append("My stack: " + str(observation["my_stack"]))
@@ -125,6 +139,17 @@ class Player(Bot):
         self.log.append(f"Equity: {equity}")
         self.log.append(f"Pot odds: {pot_odds}")
 
+        if self.allindetected and self.totalgames >= 10 and self.allins / self.totalgames > 0.98:
+            if CallAction in observation["legal_actions"] and equity > 0.5:
+                action = CallAction()
+            elif CheckAction in observation["legal_actions"]:
+                action = CheckAction()
+            else:
+                action = FoldAction()
+
+            self.log.append('using allin strat: ' + str(action))
+            return action
+
         # If the villain raised, adjust the probability
         if continue_cost > 1:
             equity = (equity - 0.5) / 0.5
@@ -134,6 +159,10 @@ class Player(Bot):
             raise_amount = min(int(pot_size*(equity ** 3 * 5 - 1)), observation["max_raise"])
             raise_amount = max(raise_amount, observation["min_raise"])
             action = RaiseAction(raise_amount)
+        elif RaiseAction in observation["legal_actions"] and equity >= pot_odds:
+            raise_amount = max(1, observation["min_raise"])
+            raise_amount = min(raise_amount, observation["max_raise"])
+            action = RaiseAction(raise_amount)
         elif CallAction in observation["legal_actions"] and equity >= pot_odds:
             action = CallAction()
         elif CheckAction in observation["legal_actions"]:
@@ -141,7 +170,7 @@ class Player(Bot):
         else:
             action = FoldAction()
 
-        self.log.append(str(action) + "\n")
+        self.log.append(str(action))
 
         return action
 
