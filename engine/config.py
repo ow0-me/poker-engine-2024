@@ -48,6 +48,7 @@ SMALL_BLIND = 1
 
 def get_credentials():
     try:
+        raise DefaultCredentialsError # temp
         credentials, _ = default()
         return credentials
     except DefaultCredentialsError:

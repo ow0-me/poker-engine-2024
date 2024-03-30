@@ -130,8 +130,8 @@ class Player(Bot):
             equity = (equity - 0.5) / 0.5
             self.log.append(f"Adjusted equity: {equity}")
 
-        if equity > 0.7 and RaiseAction in observation["legal_actions"]:
-            raise_amount = min(int(pot_size*(equity ** 3 * 5 - 1)), observation["max_raise"])
+        if equity > 0.8 and RaiseAction in observation["legal_actions"]:
+            raise_amount = min(int(pot_size*0.75), observation["max_raise"])
             raise_amount = max(raise_amount, observation["min_raise"])
             action = RaiseAction(raise_amount)
         elif CallAction in observation["legal_actions"] and equity >= pot_odds:
