@@ -1,0 +1,2 @@
+bipot Bankroll: 850
+g Bankroll: -850

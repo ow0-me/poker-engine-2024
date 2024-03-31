@@ -1,0 +1,2 @@
+ezwin Bankroll: 1000
+g Bankroll: -1000

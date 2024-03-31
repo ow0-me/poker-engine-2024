@@ -1,0 +1,2 @@
+c Bankroll: 1978
+prob_bot1 Bankroll: -1978

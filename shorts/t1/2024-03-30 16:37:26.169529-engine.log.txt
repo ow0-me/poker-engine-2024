@@ -1,0 +1,2 @@
+bp2-old Bankroll: 11392
+allin (copy) Bankroll: -11392

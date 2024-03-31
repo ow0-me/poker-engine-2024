@@ -1,0 +1,2 @@
+og Bankroll: -1
+c Bankroll: 1

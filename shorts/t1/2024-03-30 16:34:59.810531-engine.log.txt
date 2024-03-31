@@ -1,0 +1,2 @@
+bipot Bankroll: 1736
+pb0.5 Bankroll: -1736

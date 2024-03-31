@@ -1,0 +1,2 @@
+g Bankroll: -6
+bipot Bankroll: 6

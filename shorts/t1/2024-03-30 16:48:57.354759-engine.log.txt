@@ -1,0 +1,2 @@
+ogmod Bankroll: 3882
+allin (18th copy) Bankroll: -3882

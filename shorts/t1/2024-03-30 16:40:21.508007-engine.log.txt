@@ -1,0 +1,2 @@
+f Bankroll: 8043
+allin (6th copy) Bankroll: -8043

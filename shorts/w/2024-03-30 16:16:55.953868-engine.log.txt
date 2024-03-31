@@ -1,0 +1,2 @@
+og Bankroll: -8
+d Bankroll: 8

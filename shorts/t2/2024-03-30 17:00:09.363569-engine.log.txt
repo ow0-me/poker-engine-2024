@@ -1,0 +1,2 @@
+g Bankroll: 1324
+bp2-old Bankroll: -1324

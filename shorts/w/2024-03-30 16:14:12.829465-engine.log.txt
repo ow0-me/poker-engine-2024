@@ -1,0 +1,2 @@
+prob_bot Bankroll: -1050
+c Bankroll: 1050

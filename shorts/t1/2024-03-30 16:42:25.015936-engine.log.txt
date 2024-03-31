@@ -1,0 +1,2 @@
+player Bankroll: 1277
+allin (9th copy) Bankroll: -1277

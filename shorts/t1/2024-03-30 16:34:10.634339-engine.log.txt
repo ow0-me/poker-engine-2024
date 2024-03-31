@@ -1,0 +1,2 @@
+g Bankroll: 1397
+prob_bot1 Bankroll: -1397

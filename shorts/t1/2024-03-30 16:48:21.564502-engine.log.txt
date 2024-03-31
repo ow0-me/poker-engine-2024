@@ -1,0 +1,2 @@
+pbsc Bankroll: 2000
+allin (17th copy) Bankroll: -2000

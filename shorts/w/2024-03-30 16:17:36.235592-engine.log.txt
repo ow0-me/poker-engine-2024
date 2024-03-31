@@ -1,0 +1,2 @@
+allin Bankroll: 2
+ezwin Bankroll: -2

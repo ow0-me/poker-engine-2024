@@ -1,0 +1,2 @@
+ogmod Bankroll: 95
+k Bankroll: -95

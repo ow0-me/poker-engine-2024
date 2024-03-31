@@ -1,0 +1,2 @@
+d Bankroll: 1816
+prob_bot1 Bankroll: -1816

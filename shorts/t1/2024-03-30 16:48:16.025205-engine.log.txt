@@ -1,0 +1,2 @@
+prob_bot1 Bankroll: 2978
+allin (17th copy) Bankroll: -2978

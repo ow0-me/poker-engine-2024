@@ -1,0 +1,2 @@
+og Bankroll: 1777
+prob_botcp Bankroll: -1777

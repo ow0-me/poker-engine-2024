@@ -1,0 +1,2 @@
+player Bankroll: 2687
+allin (17th copy) Bankroll: -2687

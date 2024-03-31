@@ -1,0 +1,2 @@
+ogcp Bankroll: 1080
+player Bankroll: -1080

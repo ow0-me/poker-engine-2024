@@ -1,0 +1,2 @@
+g Bankroll: 28
+f Bankroll: -28

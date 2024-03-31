@@ -1,0 +1,2 @@
+ezwin Bankroll: -1025
+player Bankroll: 1025

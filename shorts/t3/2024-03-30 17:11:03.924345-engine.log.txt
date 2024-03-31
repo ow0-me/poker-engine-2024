@@ -1,0 +1,2 @@
+birai Bankroll: -144
+player Bankroll: 144

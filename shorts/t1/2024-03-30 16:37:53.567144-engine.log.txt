@@ -1,0 +1,2 @@
+allin50 Bankroll: 15300
+allin (copy) Bankroll: -15300

@@ -1,0 +1,2 @@
+pb0.5 Bankroll: 2324
+allin (6th copy) Bankroll: -2324

@@ -1,0 +1,2 @@
+player Bankroll: 1730
+prob_bot1 Bankroll: -1730

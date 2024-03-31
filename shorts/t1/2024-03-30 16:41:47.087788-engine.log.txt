@@ -1,0 +1,2 @@
+player Bankroll: 2139
+allin (8th copy) Bankroll: -2139

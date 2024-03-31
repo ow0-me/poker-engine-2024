@@ -1,0 +1,2 @@
+ogmod Bankroll: 1940
+prob_bot2 Bankroll: -1940

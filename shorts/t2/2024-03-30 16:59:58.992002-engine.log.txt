@@ -1,0 +1,2 @@
+bipot Bankroll: 1798
+bp2-old Bankroll: -1798

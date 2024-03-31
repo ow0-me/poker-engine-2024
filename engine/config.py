@@ -20,9 +20,12 @@ PLAYER_2_NAME = os.getenv("PLAYER_2_NAME", "Player 2")
 PLAYER_1_DNS = os.getenv("PLAYER_1_DNS", "localhost:50051")
 PLAYER_2_DNS = os.getenv("PLAYER_2_DNS", "localhost:50052")
 
+FULL_LOC_LOG = os.getenv("FULL_LOC_LOG", '0') == '1'
+
 # GAME PROGRESS IS RECORDED HERE
 MATCH_ID = os.getenv("MATCH_ID", 0)
 LOGS_DIRECTORY = "logs"
+SHORTLOGS_DIRECTORY = "shorts"
 #IDTN = datetime.now()
 GAME_LOG_FILENAME = lambda dt: f"{dt}-engine.log"
 BOT_LOG_FILENAME = lambda dt: f"{dt}-debug.log"
@@ -48,6 +51,7 @@ BIG_BLIND = 2
 SMALL_BLIND = 1
 
 PRINT = False
+PRINTANY = False
 # PRINT
 
 def get_credentials():
@@ -73,6 +77,7 @@ def upload_logs(log: Union[List[str], List[List[str]]], log_filename: str) -> bo
     Returns:
         bool: True if the logs were uploaded successfully, False otherwise.
     """
+    return not FULL_LOC_LOG
     credentials = get_credentials()
     BUCKET_NAME = os.getenv("BUCKET_NAME")
     if not (credentials and BUCKET_NAME):

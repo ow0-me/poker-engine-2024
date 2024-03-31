@@ -1,0 +1,2 @@
+d Bankroll: 1785
+pb0.5 Bankroll: -1785

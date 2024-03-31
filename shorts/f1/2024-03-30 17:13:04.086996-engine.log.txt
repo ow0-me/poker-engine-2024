@@ -1,0 +1,2 @@
+bp2-old Bankroll: 1666
+ezwin Bankroll: -1666

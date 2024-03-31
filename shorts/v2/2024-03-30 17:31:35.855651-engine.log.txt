@@ -1,0 +1,2 @@
+player Bankroll: -764
+bipot Bankroll: 764

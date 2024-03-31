@@ -1,0 +1,2 @@
+g Bankroll: -409
+og Bankroll: 409

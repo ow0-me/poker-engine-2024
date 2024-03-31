@@ -1,0 +1,2 @@
+ogmod Bankroll: 1988
+allin (5th copy) Bankroll: -1988

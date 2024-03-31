@@ -1,0 +1,2 @@
+player Bankroll: 2378
+allin (6th copy) Bankroll: -2378

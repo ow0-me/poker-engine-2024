@@ -1,0 +1,2 @@
+og Bankroll: -30
+j Bankroll: 30

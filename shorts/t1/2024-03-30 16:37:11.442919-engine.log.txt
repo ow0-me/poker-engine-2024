@@ -1,0 +1,2 @@
+bipot Bankroll: 1201
+nscidk Bankroll: -1201

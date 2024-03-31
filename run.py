@@ -5,12 +5,22 @@ import subprocess
 
 from engine.engine import Game
 
-P1F = 'python_skeleton/bi.py'
-p2s = ['player.py']
+#P1F = 'python_skeleton/birai.py'
+#p2s = ['player.py']
+#P1F = 'python_skeleton/bipot.py'
+#p2s = ['player.py', 'birai.py']
+#threesome = ['bipot','player','birai']
+robin = ['birai','ogcp']
+pairings = []
+
+for i, x in enumerate(robin):
+    for y in robin[:i]:
+        pairings.append((y,x))
+
 #p2s = list(filter(lambda x: x.endswith('.py'), os.listdir('python_skeleton/')))+['player.py']*2
 
 NUM_CORES = 20
-NUM_GAMES = 5
+NUM_GAMES = 15
 PROCESS_MULT = 20
 NUM_ROUNDS = 1000
 
@@ -56,14 +66,15 @@ if __name__ == "__main__":
     os.environ['NUM_GAMES'] = str(NUM_GAMES)
     os.environ['NUM_ROUNDS'] = str(NUM_ROUNDS)
 
-    p1 = P1F
+    #p1 = P1F
     i = 0
     ended = 0
-    for p2 in p2s:
+    #for p2 in p2s:
+    for p1, p2 in pairings:
         for _ in range(PROCESS_MULT):
             #game_engine_process = Process(target=run_game_engine, args=(i,))
             #game_engine_process.start()
-            processes.append(run_game_engine(i, p1, 'python_skeleton/'+p2))
+            processes.append(run_game_engine(i, f'python_skeleton/{p1}.py', f'python_skeleton/{p2}.py'))
             if len(processes) > NUM_CORES + ended:
                 processes[ended]()
                 ended += 1

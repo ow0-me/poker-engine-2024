@@ -22,6 +22,7 @@ from .config import (
     BOT_LOG_FILENAME,
     GAME_LOG_FILENAME,
     LOGS_DIRECTORY,
+    SHORTLOGS_DIRECTORY,
     NUM_ROUNDS,
     PLAYER_1_DNS,
     PLAYER_1_NAME,
@@ -29,6 +30,7 @@ from .config import (
     PLAYER_2_NAME,
     SMALL_BLIND,
     STARTING_STACK,
+    PRINTANY,
     upload_logs,
     add_match_entry,
 )
@@ -36,6 +38,9 @@ from .evaluate import ShortDeck
 from .client import Client
 from .roundstate import RoundState
 
+xprint=print
+if not PRINTANY:
+    xprint = lambda *args: None
 
 class Game:
     """
@@ -172,17 +177,17 @@ class Game:
         """
         Runs one match of poker.
         """
-        print("Starting the Poker Game...", PLAYER_1_DNS, PLAYER_2_DNS)
+        xprint("Starting the Poker Game...", PLAYER_1_DNS, PLAYER_2_DNS)
         self.players = [
             Client(PLAYER_1_NAME, PLAYER_1_DNS),
             Client(PLAYER_2_NAME, PLAYER_2_DNS),
         ]
         player_names = [PLAYER_1_NAME, PLAYER_2_NAME]
 
-        print("Checking ready...")
+        xprint("Checking ready...")
         ready = [player.check_ready(player_names) for player in self.players]
         if not all(ready):
-            print("One or more bots are not ready. Aborting the match.")
+            xprint("One or more bots are not ready. Aborting the match.")
             self.log.append("One or more bots are not ready. Aborting the match.")
             if not any(ready):
                 self.log.append("Both players forfeited the match.")
@@ -193,14 +198,14 @@ class Game:
                 self.players[1 - forfeiter].bankroll += 1500
                 self.players[forfeiter].bankroll -= 1500
         else:
-            print("Starting match...")
+            xprint("Starting match...")
             self.original_players = self.players.copy()
             for self.round_num in range(1, NUM_ROUNDS + 1):
                 if self.round_num % 50 == 0:
-                    print(f"Starting round {self.round_num}...")
-                    print(f"{self.players[0].name} remaining time: {self.players[0].game_clock}")
-                    print(f"{self.players[1].name} remaining time: {self.players[1].game_clock}")
-                    print(f"{self.original_players[0].name} Bankroll: {self.original_players[0].bankroll}\n{self.original_players[1].name} Bankroll: {self.original_players[1].bankroll}")
+                    xprint(f"Starting round {self.round_num}...")
+                    xprint(f"{self.players[0].name} remaining time: {self.players[0].game_clock}")
+                    xprint(f"{self.players[1].name} remaining time: {self.players[1].game_clock}")
+                    xprint(f"{self.original_players[0].name} Bankroll: {self.original_players[0].bankroll}\n{self.original_players[1].name} Bankroll: {self.original_players[1].bankroll}")
                 self.log.append(f"\nRound #{self.round_num}")
 
                 self.run_round((self.round_num == NUM_ROUNDS))
@@ -224,18 +229,18 @@ class Game:
         self._upload_or_write_file(self.csvlog, csv_filename, is_csv=True)
 
         log_filename = f"{GAME_LOG_FILENAME(time)}.txt"
-        self._upload_or_write_file(self.log, log_filename)
+        self._upload_or_write_file(self.log, log_filename, is_mainlog=True)
 
         for player in self.players:
             log_filename = os.path.join(player.name, f"{BOT_LOG_FILENAME(time)}.txt")
             self._upload_or_write_file(player.log, log_filename)
 
-    def _upload_or_write_file(self, content, base_filename, is_csv=False):
+    def _upload_or_write_file(self, content, base_filename, is_csv=False, is_mainlog=False):
         filename = self._get_unique_filename(base_filename)
         if not upload_logs(content, filename):
             filename = os.path.join(LOGS_DIRECTORY, filename)
             os.makedirs(os.path.dirname(filename), exist_ok=True)
-            print(f"Writing {filename}")
+            xprint(f"Writing {filename}")
             mode = "w"
             newline = "" if is_csv else None
             with open(filename, mode, newline=newline) as file:
@@ -244,6 +249,20 @@ class Game:
                     writer.writerows(content)
                 else:
                     file.write("\n".join(content))
+        else:
+            if is_csv:
+                return
+            if not is_mainlog:
+                return
+            content = content[-2:]
+            filename = os.path.join(SHORTLOGS_DIRECTORY, filename)
+            os.makedirs(os.path.dirname(filename), exist_ok=True)
+            xprint(f'Writing {filename}')
+            mode = "w"
+            newline = "" if is_csv else None
+            with open(filename, mode, newline=newline) as file:
+                file.write("\n".join(content))
+
 
     @staticmethod
     def _get_unique_filename(base_filename):

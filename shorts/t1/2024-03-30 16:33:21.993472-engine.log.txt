@@ -1,0 +1,2 @@
+ogcp Bankroll: 504
+bipot Bankroll: -504

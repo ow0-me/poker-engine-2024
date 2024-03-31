@@ -1,0 +1,2 @@
+allin (copy) Bankroll: 1301
+prob_botcp (3rd copy) Bankroll: -1301

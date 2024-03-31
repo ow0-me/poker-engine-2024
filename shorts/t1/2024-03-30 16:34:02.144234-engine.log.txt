@@ -1,0 +1,2 @@
+bp2-old Bankroll: 1490
+prob_bot1 Bankroll: -1490

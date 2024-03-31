@@ -1,0 +1,2 @@
+ogmod Bankroll: 1787
+bp2-old Bankroll: -1787

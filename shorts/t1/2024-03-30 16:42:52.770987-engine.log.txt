@@ -1,0 +1,2 @@
+ogcp Bankroll: 3389
+allin (10th copy) Bankroll: -3389

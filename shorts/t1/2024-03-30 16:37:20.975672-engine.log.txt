@@ -1,0 +1,2 @@
+allin Bankroll: 13
+allin (copy) Bankroll: -13

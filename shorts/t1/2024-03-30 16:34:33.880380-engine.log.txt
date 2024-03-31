@@ -1,0 +1,2 @@
+k Bankroll: 1733
+prob_bot2 Bankroll: -1733

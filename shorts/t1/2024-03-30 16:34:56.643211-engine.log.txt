@@ -1,0 +1,2 @@
+g Bankroll: 1399
+pb0.5 Bankroll: -1399

@@ -1,0 +1,2 @@
+bipot Bankroll: 592
+og Bankroll: -592

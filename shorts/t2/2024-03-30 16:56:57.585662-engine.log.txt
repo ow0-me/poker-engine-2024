@@ -1,0 +1,2 @@
+nscidk Bankroll: -660
+player Bankroll: 660

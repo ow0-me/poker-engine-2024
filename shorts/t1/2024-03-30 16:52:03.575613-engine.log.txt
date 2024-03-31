@@ -1,0 +1,2 @@
+ogcp Bankroll: 1700
+prob_botcp (copy) Bankroll: -1700

@@ -1,0 +1,2 @@
+pbinv Bankroll: 8307
+allin (5th copy) Bankroll: -8307

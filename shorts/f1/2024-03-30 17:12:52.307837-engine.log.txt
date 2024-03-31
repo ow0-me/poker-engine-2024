@@ -1,0 +1,2 @@
+bp2-old Bankroll: -4509
+ogcp Bankroll: 4509

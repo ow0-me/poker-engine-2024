@@ -1,0 +1,2 @@
+allin (copy) Bankroll: 4004
+allin (6th copy) Bankroll: -4004

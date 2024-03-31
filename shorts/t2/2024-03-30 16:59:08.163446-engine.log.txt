@@ -1,0 +1,2 @@
+j Bankroll: -6
+c Bankroll: 6

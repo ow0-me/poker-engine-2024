@@ -1,0 +1,2 @@
+player Bankroll: 1778
+allin (19th copy) Bankroll: -1778

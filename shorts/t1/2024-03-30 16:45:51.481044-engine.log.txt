@@ -1,0 +1,2 @@
+player Bankroll: 1500
+allin (14th copy) Bankroll: -1500

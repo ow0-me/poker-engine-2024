@@ -1,0 +1,2 @@
+ii Bankroll: 2020
+prob_bot2 Bankroll: -2020

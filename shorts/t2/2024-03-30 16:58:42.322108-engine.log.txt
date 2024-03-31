@@ -1,0 +1,2 @@
+g Bankroll: 1493
+nora Bankroll: -1493

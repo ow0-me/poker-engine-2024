@@ -1,0 +1,2 @@
+ogcp Bankroll: 28
+j Bankroll: -28

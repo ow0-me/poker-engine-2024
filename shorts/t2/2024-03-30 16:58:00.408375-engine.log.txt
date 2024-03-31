@@ -1,0 +1,2 @@
+g Bankroll: -672
+ogcp Bankroll: 672

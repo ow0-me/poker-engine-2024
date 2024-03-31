@@ -1,0 +1,2 @@
+nora Bankroll: 1337
+prob_bot1 Bankroll: -1337
